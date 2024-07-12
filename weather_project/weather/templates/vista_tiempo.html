@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App del tiempo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>El tiempo en  {{ context.location|title }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary">Mirar el tiempo</button>
+        </form>
+        {% if context|length > 0 %}
+            <p>Temperatura: {{ context.temperature }}</p>
+            <p>Maximas: {{ context.max_temp }}</p>
+            <p>Minimas: {{ context.min_temp }}</p>
+            <p>Clima: {{ context.condition }}</p>
+            <p>Fecha ahora --- {{context.date}}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
